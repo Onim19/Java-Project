@@ -22,7 +22,7 @@ public class EmployeeDetails {
     public double getSalary(){return this.salary;}
     public String getPhone(){return this.phone;}
     public String getEmail(){return this.email;}
-    
+
     public static void main(String[] args) {
         new EmployeeDetails();
     }
