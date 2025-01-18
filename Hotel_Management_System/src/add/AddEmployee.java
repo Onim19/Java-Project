@@ -147,7 +147,8 @@ public class AddEmployee extends JFrame implements ActionListener {
         }
         try {
             salary = Double.parseDouble(t_salary.getText());
-        } catch (NumberFormatException ae) {
+        }
+        catch (NumberFormatException ae) {
             JOptionPane.showMessageDialog(null, "Please enter a valid salary!", "Error", JOptionPane.ERROR_MESSAGE);
             t_salary.requestFocus();
             return;
