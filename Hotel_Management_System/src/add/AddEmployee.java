@@ -16,7 +16,7 @@ public class AddEmployee extends JFrame implements ActionListener {
         employee = new EmployeeDetails[50];
         super.getContentPane().setBackground(Color.white);
         super.setSize(800, 500); // Reduced frame height
-        super.setLocation(300, 100);
+        super.setLocation(400, 200);
         super.setLayout(null);
         ImageIcon icon=new ImageIcon("E:\\Ownproject\\Java Project\\Hotel_Management_System\\img\\Icon.png");//Icon
         super.setIconImage(icon.getImage());
@@ -137,7 +137,14 @@ public class AddEmployee extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String name = t_name.getText();
         String age = t_age.getText();
-        double salary;
+        double salary=0;
+        String gender=null;
+        if(male.isSelected()){
+            gender="Male";
+        }
+        else if(female.isSelected()){
+            gender="Female";
+        }
         try {
             salary = Double.parseDouble(t_salary.getText());
         } catch (NumberFormatException ae) {
@@ -145,18 +152,16 @@ public class AddEmployee extends JFrame implements ActionListener {
             t_salary.requestFocus();
             return;
         }
-
         String nid = t_nid.getText();
         String phone = t_phone.getText();
         String email = t_email.getText();
-        String gender = male.isSelected() ? "Male" : female.isSelected() ? "Female" : null;
+
         String job = (String) jobb.getSelectedItem();
 
         if (name.isEmpty() || age.isEmpty() || nid.isEmpty() || phone.isEmpty() || email.isEmpty() || gender == null) {
             JOptionPane.showMessageDialog(null, "Please fill out all fields!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         for (int i = 0; i < employee.length; i++) {
             if (employee[i] == null) {
                 employee[i] = new EmployeeDetails();
