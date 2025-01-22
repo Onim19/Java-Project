@@ -107,7 +107,7 @@ public class Login extends JFrame implements ActionListener {
             }
         }
         catch (IOException ae) {
-            System.out.println(12342);
+            System.out.println("An error occurred: " + ae.getMessage());
         }
     }
     public static void main(String[] args) {
