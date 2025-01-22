@@ -1,8 +1,10 @@
 package add;
+import add.details.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 
 public class Login extends JFrame implements ActionListener {
     JTextField userName;
@@ -64,21 +66,50 @@ public class Login extends JFrame implements ActionListener {
 
         super.setVisible(true);
     }
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource()==Login){
-            if(userName.getText().equals("Admin") && passWord.getText().equals("12345678")){
-                super.setVisible(false);
-                new DashBoard();
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"Wrong username or Password","Warning",JOptionPane.WARNING_MESSAGE);
-            }
-        }
-        else if(e.getSource()==Cancel){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == Login) {
+            admin();
+        } else if (e.getSource() == Cancel) {
+            super.dispose();
             new HotelManagementSystem();
         }
     }
 
+    public void admin() {
+        String username = userName.getText();
+        String password = new String(passWord.getPassword());
+        AdminDetails u = null;
+        try {
+            File admin = new File("E:\\Ownproject\\Java Project\\Hotel_Management_System\\src\\add\\details\\TextFiles\\AdminDetails.txt");
+            if (!admin.exists()) {
+                JOptionPane.showMessageDialog(null, "No user is registered!");
+            }
+            BufferedReader reader = new BufferedReader((new FileReader(admin)));
+            String line = reader.readLine();
+            boolean loggedin = false;
+            while ((line=reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts[0].equals(username) && parts[1].equals(password)) {
+                    loggedin = true;
+                    u = new AdminDetails(parts[0], parts[1]);
+                    break;
+                }
+            }
+            reader.close();
+            if (loggedin) {
+                JOptionPane.showMessageDialog(null, "Login successful");
+                super.dispose();
+                new DashBoard();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Invalid username or password");
+                return;
+            }
+        }
+        catch (IOException ae) {
+            System.out.println(12342);
+        }
+    }
     public static void main(String[] args) {
         new Login();
     }
